@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Решебник — Алгебра 8 класс (Макарычев)</title>
+<style>
+  :root{
+    --bg:#f5f7fb; --card:#ffffff; --text:#1c2333; --muted:#6b7280;
+    --accent:#2563eb; --accent-dark:#1d4ed8; --border:#e2e8f0;
+    --ok:#059669; --ok-bg:#ecfdf5; --pending:#b45309; --pending-bg:#fffbeb;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1420; --card:#171e2e; --text:#e6e9f0; --muted:#93a0b4;
+      --accent:#5b8def; --accent-dark:#7aa2f7; --border:#2a3448;
+      --ok:#34d399; --ok-bg:#0d2b22; --pending:#fbbf24; --pending-bg:#2b2308;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1420; --card:#171e2e; --text:#e6e9f0; --muted:#93a0b4;
+    --accent:#5b8def; --accent-dark:#7aa2f7; --border:#2a3448;
+    --ok:#34d399; --ok-bg:#0d2b22; --pending:#fbbf24; --pending-bg:#2b2308;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    padding:16px;
+  }
+  .wrap{max-width:760px; margin:0 auto;}
+  header{margin-bottom:18px;}
+  h1{font-size:1.35rem; margin:0 0 4px;}
+  .sub{color:var(--muted); font-size:0.92rem; margin:0;}
+  .searchbar{
+    display:flex; gap:8px; margin:18px 0 8px; flex-wrap:wrap;
+  }
+  input[type="number"]{
+    flex:1; min-width:140px; font-size:1.1rem; padding:12px 14px;
+    border-radius:10px; border:1px solid var(--border); background:var(--card); color:var(--text);
+  }
+  button{
+    font-size:1rem; padding:12px 18px; border-radius:10px; border:none;
+    background:var(--accent); color:white; cursor:pointer; font-weight:600;
+  }
+  button:hover{background:var(--accent-dark);}
+  button.ghost{background:transparent; color:var(--accent); border:1px solid var(--border);}
+  .nav{display:flex; gap:8px; margin-bottom:18px;}
+  .nav button{flex:1;}
+  .range-note{font-size:0.85rem; color:var(--muted); margin:4px 0 0;}
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; margin-bottom:16px;
+  }
+  .badge{
+    display:inline-block; font-size:0.75rem; font-weight:700; padding:3px 10px;
+    border-radius:999px; margin-bottom:10px; letter-spacing:.02em;
+  }
+  .badge.ok{color:var(--ok); background:var(--ok-bg);}
+  .badge.pending{color:var(--pending); background:var(--pending-bg);}
+  .num{font-weight:700; color:var(--accent);}
+  h2{font-size:1.05rem; margin:0 0 10px;}
+  .label{font-size:0.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:14px 0 6px; font-weight:700;}
+  .task, .solution, .answer, .odz{white-space:pre-wrap; line-height:1.55; font-size:0.98rem;}
+  .answer{font-weight:700; color:var(--text); background:var(--ok-bg); border-radius:8px; padding:10px 12px; color:var(--ok);}
+  .odz{background:var(--pending-bg); color:var(--pending); border-radius:8px; padding:10px 12px; font-weight:600;}
+  .empty{color:var(--muted); text-align:center; padding:40px 10px;}
+  footer{color:var(--muted); font-size:0.8rem; text-align:center; margin-top:24px;}
+  .toggle-theme{position:fixed; top:12px; right:12px; background:var(--card); border:1px solid var(--border); color:var(--text); padding:8px 10px; border-radius:8px; font-size:0.85rem;}
+
+  .tabs{display:flex; gap:8px; margin:18px 0 14px; border-bottom:1px solid var(--border);}
+  .tab-btn{
+    flex:1; background:transparent; color:var(--muted); border:none; border-radius:10px 10px 0 0;
+    padding:12px 10px; font-weight:600; cursor:pointer; border-bottom:3px solid transparent;
+  }
+  .tab-btn.active{color:var(--accent); border-bottom:3px solid var(--accent); background:var(--card);}
+
+  .op-select{display:flex; gap:6px; flex-wrap:wrap; margin:14px 0;}
+  .op-btn{
+    flex:1 1 auto; min-width:130px; background:var(--card); color:var(--text); border:1px solid var(--border);
+    padding:10px 10px; font-weight:600; font-size:0.85rem; border-radius:10px; cursor:pointer;
+  }
+  .op-btn.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+
+  .frow{display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;}
+  .fpair{display:flex; flex-direction:column; gap:4px; flex:1; min-width:120px;}
+  .fpair label{font-size:0.72rem; color:var(--muted); font-weight:600;}
+  .fpair input, select.finput{
+    width:100%; font-size:1rem; padding:9px 10px; border-radius:8px;
+    border:1px solid var(--border); background:var(--card); color:var(--text); font-family:monospace;
+  }
+  .fsep{font-size:1.4rem; color:var(--muted); padding-top:16px;}
+  .sign-btn{
+    width:38px; height:38px; margin-top:16px; border-radius:8px; border:1px solid var(--border);
+    background:var(--card); color:var(--text); font-weight:700; cursor:pointer; flex-shrink:0;
+  }
+  .sign-btn.plus{color:var(--ok);} .sign-btn.minus{color:#dc2626;}
+  .removeRow{background:transparent; color:var(--muted); border:none; font-size:1.1rem; cursor:pointer; margin-top:16px; padding:4px 8px;}
+  .addTermBtn{background:transparent; color:var(--accent); border:1px dashed var(--border); border-radius:8px; padding:8px 12px; font-size:0.85rem; cursor:pointer; margin-bottom:10px;}
+  .eq-input{width:100%; font-size:1rem; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text); font-family:monospace;}
+  .hint{font-size:0.78rem; color:var(--muted); margin:2px 0 12px;}
+  .status-line{font-size:0.85rem; color:var(--accent); margin:10px 0; min-height:1.2em;}
+  .status-line.err{color:#dc2626;}
+  .solve-btn{width:100%; margin-top:4px;}
+</style>
+</head>
+<body>
+<button class="toggle-theme" id="themeBtn">🌓</button>
+<div class="wrap">
+  <header>
+    <h1>📘 Решебник. Алгебра 8 класс (Макарычев и др., 2024)</h1>
+    <p class="sub">Глава I. Рациональные дроби — работает полностью офлайн, без интернета.</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tabReshebnik">📖 Решебник (1–267)</button>
+    <button class="tab-btn" id="tabSolver">🧮 Решить новый пример</button>
+  </div>
+
+  <div id="reshebnikPanel">
+    <div class="searchbar">
+      <input type="number" id="numInput" placeholder="Номер задания, например 27" min="1" max="267" autofocus>
+      <button id="goBtn">Показать решение</button>
+    </div>
+    <p class="range-note">
+      ✅ Глава I полностью решена: задания <b>1–267</b> (§1 «Рациональные дроби и их свойства», §2 «Сумма и разность дробей», §3 «Произведение и частное дробей», дополнительные упражнения к главе).
+    </p>
+    <div class="nav">
+      <button class="ghost" id="prevBtn">← Предыдущее</button>
+      <button class="ghost" id="nextBtn">Следующее →</button>
+    </div>
+
+    <div id="content">
+      <div class="empty">Введите номер задания из главы I (1–267) и нажмите «Показать решение».</div>
+    </div>
+  </div>
+
+  <div id="solverPanel" style="display:none;">
+    <p class="range-note">
+      Введите свой пример с дробями или уравнение — получите пошаговое решение, как в решебнике.
+      Считает настоящий движок символьной алгебры (Pyodide + sympy), работает офлайн.
+      При первом нажатии «Решить» движок загружается несколько секунд — дальше быстро.
+    </p>
+
+    <div class="op-select">
+      <button class="op-btn active" data-op="reduce">Сократить дробь</button>
+      <button class="op-btn" data-op="addsub">Сложить / вычесть</button>
+      <button class="op-btn" data-op="muldiv">Умножить / разделить</button>
+      <button class="op-btn" data-op="equation">Решить уравнение</button>
+    </div>
+    <div id="solverForm"></div>
+    <button class="solve-btn" id="solveBtn">Решить</button>
+    <div class="status-line" id="solverStatus"></div>
+    <div id="solverResult"></div>
+  </div>
+
+  <footer>Учебник: Ю. Н. Макарычев и др. «Математика. Алгебра. 8 класс», 17-е изд., Просвещение, 2024.<br>Тексты заданий и ответы сверены с официальным изданием.</footer>
+</div>
+
+<script src="data_ch1_sec1.js"></script>
+<script src="data_ch1_sec2.js"></script>
+<script src="data_ch1_sec3.js"></script>
+<script src="data_ch1_sec4.js"></script>
+<script src="data_ch1_rest.js"></script>
+<script src="./pyodide/pyodide.js"></script>
+<script src="solver_bridge.js"></script>
+<script>
+const solvedMap = {};
+SEC1.forEach(x => solvedMap[x.num] = x);
+SEC2.forEach(x => solvedMap[x.num] = x);
+SEC3.forEach(x => solvedMap[x.num] = x);
+SEC4.forEach(x => solvedMap[x.num] = x);
+const restMap = {};
+REST.forEach(x => restMap[x.num] = x);
+
+const input = document.getElementById('numInput');
+const content = document.getElementById('content');
+
+function esc(s){
+  const d = document.createElement('div');
+  d.innerText = s;
+  return d.innerHTML;
+}
+
+function render(num){
+  num = parseInt(num);
+  if(!num || num < 1 || num > 267){
+    content.innerHTML = '<div class="empty">Введите номер от 1 до 267.</div>';
+    return;
+  }
+  if(solvedMap[num]){
+    const x = solvedMap[num];
+    content.innerHTML = `
+      <div class="card">
+        <span class="badge ok">✓ Решено полностью</span>
+        <h2><span class="num">№ ${x.num}.</span> ${x.num <= 54 ? '§1. Рациональные дроби и их свойства' : (x.num <= 109 ? '§2. Сумма и разность дробей' : (x.num <= 200 ? '§3. Произведение и частное дробей' : 'Дополнительные упражнения к главе I'))}</h2>
+        <div class="label">Задание</div>
+        <div class="task">${esc(x.task)}</div>
+        <div class="label">Решение</div>
+        <div class="solution">${esc(x.solution)}</div>
+        ${x.odz ? `<div class="label">ОДЗ</div><div class="odz">${esc(x.odz)}</div>` : ''}
+        <div class="label">Ответ</div>
+        <div class="answer">${esc(x.answer)}</div>
+      </div>`;
+  } else if(restMap[num]){
+    const x = restMap[num];
+    content.innerHTML = `
+      <div class="card">
+        <span class="badge pending">⏳ Решение в разработке</span>
+        <h2><span class="num">№ ${x.num}.</span> Глава I</h2>
+        <div class="label">Задание (текст из учебника)</div>
+        <div class="task">${esc(x.task || '(текст не распознан — см. печатное издание)')}</div>
+        <p class="range-note" style="margin-top:14px;">Подробное пошаговое решение для этого номера ещё не добавлено. Уже готовы задания 1–200 (§1–§3). Работа над остальными продолжается.</p>
+      </div>`;
+  } else {
+    content.innerHTML = '<div class="empty">Задание с таким номером не найдено в главе I.</div>';
+  }
+  input.value = num;
+}
+
+document.getElementById('goBtn').addEventListener('click', () => render(input.value));
+input.addEventListener('keydown', e => { if(e.key === 'Enter') render(input.value); });
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  let n = parseInt(input.value) || 1;
+  render(Math.max(1, n-1));
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+  let n = parseInt(input.value) || 0;
+  render(Math.min(267, n+1));
+});
+
+// ---- Tabs ----
+const tabReshebnik = document.getElementById('tabReshebnik');
+const tabSolver = document.getElementById('tabSolver');
+const reshebnikPanel = document.getElementById('reshebnikPanel');
+const solverPanel = document.getElementById('solverPanel');
+tabReshebnik.addEventListener('click', () => {
+  tabReshebnik.classList.add('active'); tabSolver.classList.remove('active');
+  reshebnikPanel.style.display = ''; solverPanel.style.display = 'none';
+});
+tabSolver.addEventListener('click', () => {
+  tabSolver.classList.add('active'); tabReshebnik.classList.remove('active');
+  solverPanel.style.display = ''; reshebnikPanel.style.display = 'none';
+});
+
+// ---- Solver: operation selector + dynamic form ----
+let currentOp = 'reduce';
+const opBtns = document.querySelectorAll('.op-btn');
+const solverForm = document.getElementById('solverForm');
+const solverStatus = document.getElementById('solverStatus');
+const solverResult = document.getElementById('solverResult');
+let termCount = 2;
+
+function fpairHTML(idPrefix, labelText, placeholder){
+  return `<div class="fpair"><label>${labelText}</label><input type="text" id="${idPrefix}" placeholder="${placeholder}" autocomplete="off"></div>`;
+}
+
+function renderForm(op){
+  solverResult.innerHTML = '';
+  solverStatus.textContent = '';
+  if(op === 'reduce'){
+    solverForm.innerHTML = `
+      <div class="frow">
+        ${fpairHTML('r_num', 'Числитель', 'напр. a^2-9')}
+        <span class="fsep">/</span>
+        ${fpairHTML('r_den', 'Знаменатель', 'напр. a^2-3a')}
+      </div>
+      <p class="hint">Дробь сокращается: разложит числитель и знаменатель на множители и сократит общие.</p>`;
+  } else if(op === 'addsub'){
+    termCount = 2;
+    solverForm.innerHTML = `<div id="termRows"></div>
+      <button type="button" class="addTermBtn" id="addTermBtn">+ добавить дробь (макс. 3)</button>
+      <p class="hint">Первая дробь всегда со знаком «+». Знак у остальных можно переключать кнопкой.</p>`;
+    buildTermRows();
+    document.getElementById('addTermBtn').addEventListener('click', () => {
+      if(termCount < 3){ termCount++; buildTermRows(); }
+    });
+  } else if(op === 'muldiv'){
+    solverForm.innerHTML = `
+      <div class="frow">
+        ${fpairHTML('m_num1', 'Числитель 1', 'напр. a^2-b^2')}
+        <span class="fsep">/</span>
+        ${fpairHTML('m_den1', 'Знаменатель 1', 'напр. a')}
+        <select class="finput" id="m_op" style="max-width:70px; margin-top:16px;">
+          <option value="*">×</option>
+          <option value="/">÷</option>
+        </select>
+        ${fpairHTML('m_num2', 'Числитель 2', 'напр. a+b')}
+        <span class="fsep">/</span>
+        ${fpairHTML('m_den2', 'Знаменатель 2', 'напр. a-b')}
+      </div>
+      <p class="hint">Умножит или разделит дроби, сократив результат.</p>`;
+  } else if(op === 'equation'){
+    solverForm.innerHTML = `
+      <div class="frow">
+        <div class="fpair" style="flex:1;">
+          <label>Уравнение</label>
+          <input type="text" class="eq-input" id="eq_input" placeholder="напр. 3*(5x-4)-8x=4x+9  или  x/(x-2)=2/(x-2)+1" autocomplete="off">
+        </div>
+      </div>
+      <p class="hint">Пишите * для умножения (3*x), ^ для степени (x^2). Решает линейные, квадратные и дробно-рациональные уравнения.</p>`;
+  }
+}
+
+function buildTermRows(){
+  const wrap = document.getElementById('termRows');
+  let html = '';
+  for(let i = 1; i <= termCount; i++){
+    html += `<div class="frow" data-term="${i}">`;
+    if(i === 1){
+      html += `<span class="fsep" style="width:38px; text-align:center;">+</span>`;
+    } else {
+      html += `<button type="button" class="sign-btn plus" id="sign${i}" data-sign="+">+</button>`;
+    }
+    html += fpairHTML(`t${i}_num`, `Числитель ${i}`, i===1 ? 'напр. 2' : 'напр. 3');
+    html += `<span class="fsep">/</span>`;
+    html += fpairHTML(`t${i}_den`, `Знаменатель ${i}`, i===1?'x-1':'x+2');
+    if(i > 2){
+      html += `<button type="button" class="removeRow" data-remove="${i}">✕</button>`;
+    }
+    html += `</div>`;
+  }
+  wrap.innerHTML = html;
+  for(let i = 2; i <= termCount; i++){
+    const btn = document.getElementById(`sign${i}`);
+    btn.addEventListener('click', () => {
+      const cur = btn.getAttribute('data-sign');
+      const next = cur === '+' ? '-' : '+';
+      btn.setAttribute('data-sign', next);
+      btn.textContent = next;
+      btn.classList.toggle('plus', next === '+');
+      btn.classList.toggle('minus', next === '-');
+    });
+  }
+  const rm = wrap.querySelector('[data-remove]');
+  if(rm){
+    rm.addEventListener('click', () => { termCount--; buildTermRows(); });
+  }
+}
+
+opBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    opBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentOp = btn.getAttribute('data-op');
+    renderForm(currentOp);
+  });
+});
+renderForm(currentOp);
+
+function renderSolverResult(res){
+  if(res.error){
+    let msg = res.error;
+    if(msg === 'FILE_PROTOCOL_BLOCKED'){
+      msg = 'Не удалось загрузить вычислительный движок. Похоже, файл открыт двойным кликом (file://) — браузер блокирует загрузку данных движка в этом режиме. Запустите локальный сервер (см. start_server.bat рядом с файлом) и откройте через http://localhost, тогда решатель заработает.';
+    }
+    solverResult.innerHTML = `<div class="card"><span class="badge pending">⚠ Не получилось</span><div class="task">${esc(msg)}</div></div>`;
+    return;
+  }
+  const stepsText = (res.steps || []).join('\n\n');
+  solverResult.innerHTML = `
+    <div class="card">
+      <span class="badge ok">✓ Решено</span>
+      <div class="label">Решение</div>
+      <div class="solution">${esc(stepsText)}</div>
+      ${res.odz ? `<div class="label">ОДЗ</div><div class="odz">${esc(res.odz)}</div>` : ''}
+      <div class="label">Ответ</div>
+      <div class="answer">${esc(res.answer)}</div>
+    </div>`;
+}
+
+document.getElementById('solveBtn').addEventListener('click', async () => {
+  solverResult.innerHTML = '';
+  solverStatus.classList.remove('err');
+  let kind = currentOp, payload = {};
+  if(kind === 'reduce'){
+    payload = { num: document.getElementById('r_num').value.trim(), den: document.getElementById('r_den').value.trim() };
+    if(!payload.num || !payload.den){ solverStatus.textContent = 'Заполните числитель и знаменатель.'; solverStatus.classList.add('err'); return; }
+  } else if(kind === 'addsub'){
+    const terms = [];
+    for(let i = 1; i <= termCount; i++){
+      const num = document.getElementById(`t${i}_num`).value.trim();
+      const den = document.getElementById(`t${i}_den`).value.trim();
+      if(!num || !den){ solverStatus.textContent = 'Заполните все дроби.'; solverStatus.classList.add('err'); return; }
+      const sign = i === 1 ? '+' : document.getElementById(`sign${i}`).getAttribute('data-sign');
+      terms.push({ num, den, sign });
+    }
+    payload = { terms };
+  } else if(kind === 'muldiv'){
+    payload = {
+      num1: document.getElementById('m_num1').value.trim(),
+      den1: document.getElementById('m_den1').value.trim(),
+      op: document.getElementById('m_op').value,
+      num2: document.getElementById('m_num2').value.trim(),
+      den2: document.getElementById('m_den2').value.trim()
+    };
+    if(!payload.num1 || !payload.den1 || !payload.num2 || !payload.den2){ solverStatus.textContent = 'Заполните все поля.'; solverStatus.classList.add('err'); return; }
+  } else if(kind === 'equation'){
+    payload = { eq: document.getElementById('eq_input').value.trim() };
+    if(!payload.eq){ solverStatus.textContent = 'Введите уравнение.'; solverStatus.classList.add('err'); return; }
+  }
+
+  solverStatus.textContent = 'Готовим вычисления…';
+  try {
+    const res = await runSolver(kind, payload, (t) => { solverStatus.textContent = t; });
+    solverStatus.textContent = '';
+    renderSolverResult(res);
+  } catch(e){
+    solverStatus.textContent = '';
+    renderSolverResult({ error: 'Непредвиденная ошибка: ' + (e && e.message ? e.message : String(e)) });
+  }
+});
+
+// theme toggle (persists only for this session via localStorage, best-effort)
+const themeBtn = document.getElementById('themeBtn');
+try {
+  const saved = localStorage.getItem('reshebnik-theme');
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+} catch(e){}
+themeBtn.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('reshebnik-theme', next); } catch(e){}
+});
+</script>
+</body>
+</html>
